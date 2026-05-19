@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init
+  namespace: litellm
+data:
+  init.sql: |
+    -- Habilita extensão UUID (LiteLLM usa pra virtual keys)
+    CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+    -- Habilita extensão pgcrypto (usada por hashes do LiteLLM)
+    CREATE EXTENSION IF NOT EXISTS "pgcrypto";
