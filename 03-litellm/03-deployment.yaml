@@ -6,7 +6,7 @@ metadata:
   labels:
     app: litellm
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: litellm
@@ -69,15 +69,15 @@ spec:
           resources:
             requests:
               cpu: 100m
-              memory: 256Mi
-            limits:
-              cpu: 500m
               memory: 512Mi
+            limits:
+              cpu: "1"
+              memory: 1536Mi
           readinessProbe:
             httpGet:
               path: /health/readiness
               port: 4000
-            initialDelaySeconds: 20
+            initialDelaySeconds: 60
             periodSeconds: 5
             timeoutSeconds: 3
             failureThreshold: 5
@@ -85,7 +85,7 @@ spec:
             httpGet:
               path: /health/liveliness
               port: 4000
-            initialDelaySeconds: 60
+            initialDelaySeconds: 120
             periodSeconds: 10
             timeoutSeconds: 3
             failureThreshold: 3
